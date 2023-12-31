@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:remainder_flutter/domain/authentication.dart';
-import 'package:remainder_flutter/presentation/home_screen.dart';
+import 'package:remainder_flutter/presentation/homeScreen/home_screen.dart';
 import 'package:remainder_flutter/presentation/splash_screen.dart';
 
 import 'app_routes.dart';
