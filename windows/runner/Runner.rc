@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "remainder_flutter" "\0"
+            VALUE "FileDescription", "filednote" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "remainder_flutter" "\0"
+            VALUE "InternalName", "filednote" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "remainder_flutter.exe" "\0"
-            VALUE "ProductName", "remainder_flutter" "\0"
+            VALUE "OriginalFilename", "filednote.exe" "\0"
+            VALUE "ProductName", "filednote" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

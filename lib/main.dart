@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/src/consumer.dart';
-import 'package:remainder_flutter/presentation/app_widgets.dart';
+import 'package:filednote/presentation/app_widgets.dart';
 
 import 'core/env/env.dart';
 

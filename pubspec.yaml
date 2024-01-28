@@ -1,4 +1,4 @@
-name: remainder_flutter
+name: filednote
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -32,6 +32,8 @@ dependencies:
     sdk: flutter
 
 
+  flutter_localizations:
+    sdk: flutter
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
@@ -39,10 +41,18 @@ dependencies:
   riverpod_annotation: ^2.3.3
   hooks_riverpod:
   go_router:
-  intl: ^0.17.0
-  animations:
+  intl: any
+  animations: ^2.0.11
   logger: ^2.0.2+1
   json_annotation:
+  concentric_transition: ^1.0.3
+  flutter_onboarding_slider: ^1.0.11
+  easy_date_timeline: ^1.0.2
+  gap: ^3.0.1
+  flutter_svg: ^2.0.9
+  flutter_localization: ^0.2.0
+  animated_segmented_tab_control: ^1.2.1
+ # fpdart: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -53,6 +63,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
+
   flutter_lints: ^2.0.0
   build_runner:
   riverpod_generator: ^2.3.9
@@ -71,10 +82,12 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  generate: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/images/
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
