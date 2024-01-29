@@ -28,10 +28,14 @@ class AppTheme {
         statusBarIconBrightness: Brightness.light,
       ),
     ),
+    dividerTheme: DividerThemeData(
+      color: AppColor.secondaryTextColor,
+      thickness: 1,
+    ),
     primaryColor: AppColor.primaryColor,
     scaffoldBackgroundColor: AppColor.scaffoldBackgroundColor,
     cardColor: AppColor.cardColor,
-    dividerColor: AppColor.borderColor,
+    dividerColor: AppColor.secondaryTextColor,
     hintColor: AppColor.secondaryTextColor,
     canvasColor: AppColor.primaryColor,
     colorScheme: ColorScheme.light(

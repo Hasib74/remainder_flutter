@@ -5,6 +5,7 @@ import 'package:filednote/presentation/mainFeatures/root/screen/root_drawer.dart
 import 'package:filednote/presentation/mainFeatures/root/screen/root_screen.dart';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:filednote/domain/authentication.dart';
@@ -72,79 +73,45 @@ class RouterNotifier extends ChangeNotifier {
           name: AppRoutes.signUp,
           builder: (context, state) => const SignUpScreen()),
       StatefulShellRoute(
-          branches: [
-            StatefulShellBranch(initialLocation: AppRoutes.dashBoard, routes: [
-              GoRoute(
-                  path: AppRoutes.dashBoard,
-                  name: AppRoutes.dashBoard,
-                  builder: (context, state) => const DashBoardScreen()),
-            ]),
-            StatefulShellBranch(routes: [
-              GoRoute(
-                  path: AppRoutes.addExp,
-                  name: AppRoutes.addExp,
-                  builder: (context, state) => const ExperimentScreen()),
-            ])
-          ],
-
-          /*pageBuilder: (context , state , shell){
-
-            return Page();
-
-          },*/
-
-          builder: (BuildContext context, GoRouterState state,
-              StatefulNavigationShell navigationShell) {
-            return RootScreen(
-              key: state.pageKey,
-              navigationShell: navigationShell,
-              child: navigationShell,
-            );
-            ;
-          },
-          navigatorContainerBuilder: (BuildContext context,
-              StatefulNavigationShell navigationShell, List<Widget> children) {
-            return RootScreen(
-              navigationShell: navigationShell,
-              child: children[navigationShell.currentIndex],
-            );
-          })
-
-      /*  ShellRoute(
-          builder: (context, state, child) => RootScreen(
-                key: state.pageKey,
-                child: child,
-              ),
-          navigatorKey: AppRoutes.shellNavigatorKey,
-          routes: [
+        builder: (BuildContext context, GoRouterState state,
+            StatefulNavigationShell navigationShell) {
+          return navigationShell;
+        },
+        navigatorContainerBuilder: (BuildContext context,
+            StatefulNavigationShell navigationShell, List<Widget> children) {
+          return RootScreen(
+            navigationShell: navigationShell,
+            child: children[navigationShell.currentIndex],
+          );
+        },
+        branches: [
+          StatefulShellBranch(initialLocation: AppRoutes.dashBoard, routes: [
             GoRoute(
-                builder: (context, state) {
-                  return RootDrawer();
+              path: AppRoutes.dashBoard,
+              name: AppRoutes.dashBoard,
+              pageBuilder: (context, state) {
+                return const NoTransitionPage(child: DashBoardScreen());
+              },
+            )
+          ]),
+          StatefulShellBranch(routes: [
+            GoRoute(
+                path: AppRoutes.experiment,
+                name: AppRoutes.experiment,
+                pageBuilder: (context, state) {
+                  return const NoTransitionPage(child: ExperimentScreen());
                 },
-                path: AppRoutes.rootDrawer,
-                name: AppRoutes.rootDrawer,
                 routes: [
-                  GoRoute(
-                      path: AppRoutes.dashBoard,
-                      name: AppRoutes.dashBoard,
-                      builder: (context, state) => const DashBoardScreen()),
                   GoRoute(
                       path: AppRoutes.addExp,
                       name: AppRoutes.addExp,
-                      builder: (context, state) => const AddExperiments()),
-                ])
-          ]),*/
-
-      /*  GoRoute(
-          path: AppRoutes.rootScreen,
-          name: AppRoutes.rootScreen,
-          builder: (context, state) =>  RootScreen()),
-*/
-      /*   StatefulShellRoute(branches: branches, navigatorContainerBuilder: (context){
-        return ProviderScope(
-          child: context.navigator,
-        );
-      })*/
+                      pageBuilder: (context, state) {
+                        return NoTransitionPage(child: AddExperiments());
+                      })
+                ]),
+          ]),
+        ],
+      ),
     ];
   }
 
@@ -159,7 +126,7 @@ class RouterNotifier extends ChangeNotifier {
         GoRoute(
             path: AppRoutes.addExp,
             name: AppRoutes.addExp,
-            builder: (context, state) => const AddExperiments()),
+            builder: (context, state) => AddExperiments()),
         GoRoute(
             path: AppRoutes.dashBoard,
             name: AppRoutes.dashBoard,

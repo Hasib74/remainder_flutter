@@ -16,7 +16,8 @@ class AppRoutes {
   static const String signUp = '/register';
   static const String rootScreen = "/root_screen";
   static const String rootDrawer = "/root_drawer";
-  static const String addExp = "/add_exp";
+  static const String experiment = "/experiment";
+  static const String addExp = "add_exp";
   static const String dashBoard = "/dash_board";
 
 //go route

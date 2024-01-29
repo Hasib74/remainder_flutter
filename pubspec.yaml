@@ -52,6 +52,7 @@ dependencies:
   flutter_svg: ^2.0.9
   flutter_localization: ^0.2.0
   animated_segmented_tab_control: ^1.2.1
+  dropdown_search: ^5.0.6
  # fpdart: ^1.1.0
 
 dev_dependencies:
