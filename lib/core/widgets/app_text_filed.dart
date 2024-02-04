@@ -36,49 +36,54 @@ class AppTextFiled<T> extends StatelessWidget {
   List<T>? menus;
   IconData? suffixIcon;
   Function(T)? onSelectedItem;
+  String? addButtonTitle;
 
-  AppTextFiled({
-    super.key,
-    this.hint,
-    // this.label,
-    this.errorText,
-    this.isPassword,
-    this.controller,
-    this.textInputType,
-    this.textInputAction,
-    this.focusNode,
-    this.onFieldSubmitted,
-    this.onChanged,
-    this.onEditingComplete,
-    this.onTap,
-    this.onSaved,
-    this.validator,
-    this.maxLines,
-    this.minLines,
-    this.enabled,
-    this.readOnly,
-    this.obscureText,
-    this.autofocus,
-    this.autocorrect,
-    this.enableSuggestions,
-    this.showCursor,
-    this.maxLengthEnforced,
-    this.maxLength,
-    this.cursorWidth,
-    this.cursorHeight,
-    this.cursorRadius,
-    this.cursorColor,
-    this.menus,
-    this.suffixIcon,
-    this.onSelectedItem,
-  });
+  VoidCallback? onAddButtonClick;
+
+  AppTextFiled(
+      {super.key,
+      this.hint,
+      // this.label,
+      this.errorText,
+      this.isPassword,
+      this.controller,
+      this.textInputType,
+      this.textInputAction,
+      this.focusNode,
+      this.onFieldSubmitted,
+      this.onChanged,
+      this.onEditingComplete,
+      this.onTap,
+      this.onSaved,
+      this.validator,
+      this.maxLines,
+      this.minLines,
+      this.enabled,
+      this.readOnly,
+      this.obscureText,
+      this.autofocus,
+      this.autocorrect,
+      this.enableSuggestions,
+      this.showCursor,
+      this.maxLengthEnforced,
+      this.maxLength,
+      this.cursorWidth,
+      this.cursorHeight,
+      this.cursorRadius,
+      this.cursorColor,
+      this.menus,
+      this.suffixIcon,
+      this.onSelectedItem,
+      this.addButtonTitle,
+      this.onAddButtonClick});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
         if (menus != null) {
-          T? data = await showAppDropDownDialog<T>(context, menus ?? []);
+          T? data = await showAppDropDownDialog<T>(context, menus ?? [],
+              addButtonTitle: addButtonTitle, addButtonClick: onAddButtonClick);
 
           if (data != null) {
             onSelectedItem!(data);

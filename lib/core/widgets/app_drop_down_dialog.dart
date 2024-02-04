@@ -1,11 +1,17 @@
 import 'package:filednote/core/theme/app_colors.dart';
+import 'package:filednote/core/widgets/app_button_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
-showAppDropDownDialog<T>(BuildContext context, List<T> data) {
+showAppDropDownDialog<T>(BuildContext context, List<T> data,
+    {String? addButtonTitle, VoidCallback? addButtonClick}) {
   return showDialog(
     context: context,
     builder: (context) {
-      return _AppDropDownDialog<T>(data: data);
+      return _AppDropDownDialog<T>(
+        data: data,
+        addButtonTitle: addButtonTitle,
+      );
     },
   );
 }
@@ -13,7 +19,15 @@ showAppDropDownDialog<T>(BuildContext context, List<T> data) {
 class _AppDropDownDialog<T> extends StatelessWidget {
   List<T> data;
 
-  _AppDropDownDialog({super.key, required this.data});
+  String? addButtonTitle;
+
+  VoidCallback? addButtonClick;
+
+  _AppDropDownDialog(
+      {super.key,
+      required this.data,
+      this.addButtonTitle,
+      this.addButtonClick});
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +45,22 @@ class _AppDropDownDialog<T> extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SearchBar(
+                    elevation: MaterialStateProperty.all(1),
+                    trailing: [
+                      Icon(
+                        Icons.search,
+                        color: AppColor.secondaryTextColor,
+                      )
+                    ],
+                    hintText: 'Search',
+                    onChanged: (value) {
+                      print(value);
+                    },
+                  ),
+                ),
                 ListView.separated(
                   itemCount: data.length,
                   shrinkWrap: true,
@@ -52,6 +82,13 @@ class _AppDropDownDialog<T> extends StatelessWidget {
                     );
                   },
                 ),
+                AppButton(
+                  title: addButtonTitle ?? 'Add',
+                  onPressed: addButtonClick,
+                  color: AppColor.primaryColor,
+                  textColor: Colors.white,
+                ),
+                Gap(16),
               ],
             ),
           ),

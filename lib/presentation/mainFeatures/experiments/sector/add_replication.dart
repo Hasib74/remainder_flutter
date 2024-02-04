@@ -29,7 +29,16 @@ class AddReplication extends ConsumerWidget {
         Text("Treatment & Replication",
             style: Theme.of(context).textTheme.titleLarge),
         Gap(16),
-        Text("Treatment ${1}", style: Theme.of(context).textTheme.titleMedium),
+        AppTextFiled(
+          hint: "Treatment 1",
+          controller: controller
+              .treatmentAndReplicationTextFiledController["treatment"],
+          onChanged: (value) {
+            ref
+                .read(addReplicationProvider.notifier)
+                .setTreatment(int.parse(value));
+          },
+        ),
         ListView.separated(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -62,11 +71,18 @@ class AddReplication extends ConsumerWidget {
             },
             separatorBuilder: (context, int index) {
               return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Center(
-                    child: Text("Treatment ${index + 2}",
-                        style: Theme.of(context).textTheme.titleMedium),
-                  ));
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: AppTextFiled(
+                  hint: "Treatment ${index + 2}",
+                  controller: controller
+                      .treatmentAndReplicationTextFiledController["treatment"],
+                  onChanged: (value) {
+                    ref
+                        .read(addReplicationProvider.notifier)
+                        .setTreatment(int.parse(value));
+                  },
+                ),
+              );
             },
             itemCount: _addReplicationProvider.treatment ?? 0),
       ],

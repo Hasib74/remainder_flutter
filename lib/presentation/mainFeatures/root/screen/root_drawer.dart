@@ -51,11 +51,10 @@ class RootDrawer extends ConsumerWidget {
         ListTile(
           title: Text(language(context)!.observation),
           onTap: () {
-            Navigator.pop(context);
+            scaffoldKey.currentState?.closeDrawer();
 
-            ref
-                .read(rootProvider.notifier)
-                .changeMenu(RootMenuEnum.observationScreen);
+            navigationShell.goBranch(2,
+                initialLocation: 2 == navigationShell.currentIndex);
           },
         ),
       ],

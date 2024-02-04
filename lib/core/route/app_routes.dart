@@ -19,6 +19,7 @@ class AppRoutes {
   static const String experiment = "/experiment";
   static const String addExp = "add_exp";
   static const String dashBoard = "/dash_board";
+  static const String observation = "/observation";
 
 //go route
 }

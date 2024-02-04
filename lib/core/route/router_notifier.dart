@@ -15,6 +15,7 @@ import 'package:filednote/presentation/splash_screen.dart';
 import '../../presentation/auth/section/signIn/sign_in_screen.dart';
 import '../../presentation/auth/section/signUp/sign_up_screen.dart';
 import '../../presentation/mainFeatures/dashBoard/screen/dash_board_screen.dart';
+import '../../presentation/mainFeatures/observation/screen/observer_screen.dart';
 import '../../presentation/onBoarding/on_boarding_screen.dart';
 import 'app_routes.dart';
 
@@ -110,6 +111,14 @@ class RouterNotifier extends ChangeNotifier {
                       })
                 ]),
           ]),
+          StatefulShellBranch(routes: [
+            GoRoute(
+                path: AppRoutes.observation,
+                name: AppRoutes.observation,
+                pageBuilder: (context, state) {
+                  return const NoTransitionPage(child: ObserverScreen());
+                })
+          ])
         ],
       ),
     ];
