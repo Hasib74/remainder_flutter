@@ -67,11 +67,19 @@ class AddExperiments extends ConsumerWidget {
                   },
                   controller: controller.cropsTextEditingController,
                   hint: "Crops",
+                  addButtonTitle: "Add Crops",
+                  onAddButtonClick: () {
+                    print("Add Crops button clicked");
+                  },
                 ),
                 AppUtils.mediumGap,
                 AppTextFiled<String>(
                   enabled: false,
                   controller: controller.diseaseTextEditingController,
+                  addButtonTitle: "Add Disease",
+                  onAddButtonClick: () {
+                    print("Add Disease button clicked");
+                  },
                   hint: "Disease",
                   menus: const [
                     "Fairy ring",

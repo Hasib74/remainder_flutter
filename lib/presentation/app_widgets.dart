@@ -24,6 +24,8 @@ class AppWidget extends HookConsumerWidget {
     });
 
     return MaterialApp.router(
+
+
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
       routeInformationParser: ref.watch(routerProvider).routeInformationParser,
