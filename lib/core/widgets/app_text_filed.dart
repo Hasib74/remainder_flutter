@@ -2,6 +2,8 @@ import 'package:filednote/core/theme/app_colors.dart';
 import 'package:filednote/core/widgets/app_drop_down_dialog.dart';
 import 'package:flutter/material.dart';
 
+import '../packages/app_multi_select_form_field.dart';
+
 class AppTextFiled<T> extends StatelessWidget {
   String? hint;
 
@@ -40,6 +42,8 @@ class AppTextFiled<T> extends StatelessWidget {
 
   VoidCallback? onAddButtonClick;
 
+  bool? isMultiSelect;
+
   AppTextFiled(
       {super.key,
       this.hint,
@@ -75,7 +79,8 @@ class AppTextFiled<T> extends StatelessWidget {
       this.suffixIcon,
       this.onSelectedItem,
       this.addButtonTitle,
-      this.onAddButtonClick});
+      this.onAddButtonClick,
+      this.isMultiSelect = false});
 
   @override
   Widget build(BuildContext context) {
@@ -90,40 +95,101 @@ class AppTextFiled<T> extends StatelessWidget {
           }
         }
       },
-      child: TextField(
-        controller: controller,
-        keyboardType: textInputType,
-        textInputAction: textInputAction,
-        focusNode: focusNode,
-        onChanged: onChanged as void Function(String)?,
-        onEditingComplete: onEditingComplete as void Function()?,
-        onTap: onTap as void Function()?,
-        onSubmitted: onFieldSubmitted as void Function(String)?,
-        maxLines: maxLines,
-        minLines: minLines,
-        enabled: enabled,
-        textDirection: TextDirection.ltr,
-        style: TextStyle(
-          color: AppColor.primaryTextColor,
-          fontSize: 12,
-        ),
-        cursorColor: AppColor.primaryTextColor,
-        decoration: InputDecoration(
-          hintText: hint,
-          errorText: errorText,
-          focusColor: AppColor.primaryTextColor,
-          fillColor: AppColor.primaryTextColor,
-          suffixIcon: Icon(
-            menus != null ? Icons.keyboard_arrow_down_rounded : suffixIcon,
-            color: AppColor.secondaryTextColor,
-          ),
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColor.secondaryTextColor,
+      child: isMultiSelect == true
+          ? _multiSelect()
+          : TextField(
+              controller: controller,
+              keyboardType: textInputType,
+              textInputAction: textInputAction,
+              focusNode: focusNode,
+              onChanged: onChanged as void Function(String)?,
+              onEditingComplete: onEditingComplete as void Function()?,
+              onTap: onTap as void Function()?,
+              onSubmitted: onFieldSubmitted as void Function(String)?,
+              maxLines: maxLines,
+              minLines: minLines,
+              enabled: enabled,
+              textDirection: TextDirection.ltr,
+              style: TextStyle(
+                color: AppColor.primaryTextColor,
+                fontSize: 12,
+              ),
+              cursorColor: AppColor.primaryTextColor,
+              decoration: InputDecoration(
+                hintText: hint,
+                errorText: errorText,
+                focusColor: AppColor.primaryTextColor,
+                fillColor: AppColor.primaryTextColor,
+                suffixIcon: Icon(
+                  menus != null
+                      ? Icons.keyboard_arrow_down_rounded
+                      : suffixIcon,
+                  color: AppColor.secondaryTextColor,
+                ),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: AppColor.secondaryTextColor,
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
+    );
+  }
+
+  _multiSelect() {
+    List<Map<String, String>?>? dataSource = menus?.map((e) {
+      return {
+        "display": e.toString(),
+        "value": e.toString(),
+      };
+    }).toList();
+
+    print(dataSource);
+    return MultiSelectFormField(
+      autovalidate: AutovalidateMode.disabled,
+      checkBoxActiveColor: AppColor.primaryColor,
+      checkBoxCheckColor: Colors.white,
+      dialogShapeBorder: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12.0))),
+      title: const Text('Crops'),
+      validator: (value) {
+        if (value == null || value.length == 0) {
+          return 'Please select one or more options';
+        }
+        return null;
+      },
+      dataSource: const [
+        {
+          "display": "Type One",
+          "value": "Type One",
+        },
+        {
+          "display": "Type Two",
+          "value": "Type Two",
+        },
+        {
+          "display": "Type Three",
+          "value": "Type Three",
+        },
+        {
+          "display": "Type Four",
+          "value": "Type Four",
+        },
+        {
+          "display": "Type Five",
+          "value": "Type Five",
+        }
+      ],
+      textField: 'display',
+      valueField: 'value',
+      okButtonLabel: 'OK',
+      cancelButtonLabel: 'CANCEL',
+      hintWidget: Text(hint ?? ""),
+      onSaved: (value) {
+        if (value == null) return;
+      },
+      addButtonTitle: "Add New Crop",
+      onAddButtonClicked: onAddButtonClick,
     );
   }
 }

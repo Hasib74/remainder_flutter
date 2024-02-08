@@ -60,9 +60,12 @@ class CropListScreen extends StatelessWidget {
             child: SearchBar(
               elevation: MaterialStateProperty.all(1),
               trailing: [
-                Icon(
-                  Icons.search,
-                  color: AppColor.secondaryTextColor,
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Icon(
+                    Icons.search,
+                    color: AppColor.secondaryTextColor,
+                  ),
                 )
               ],
               hintText: 'Search',
@@ -79,10 +82,13 @@ class CropListScreen extends StatelessWidget {
                   );
                 },
                 separatorBuilder: (context, int index) {
-                  return Divider();
+                  return const Divider();
                 },
                 itemCount: _cropsList.length),
           ),
+
+
+
         ],
       ),
     ));
