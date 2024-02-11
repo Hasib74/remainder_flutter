@@ -8,11 +8,12 @@ import 'package:filednote/presentation/app_widgets.dart';
 
 import 'core/env/env.dart';
 
+/*
 void main() => runApp( const MaterialApp(
       home: AddDiseaseScreen(),
     ));
+*/
 
-/*
 void main() => Main();
 
 class Main extends Env {
@@ -21,4 +22,3 @@ class Main extends Env {
     return AppWidget();
   }
 }
-*/

@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 showAppDropDownDialog<T>(BuildContext context, List<T> data,
-    {String? addButtonTitle, VoidCallback? addButtonClick}) {
+    {String? addButtonTitle,
+    VoidCallback? addButtonClick,
+    bool? searchEnabled = true}) {
   return showDialog(
     context: context,
     builder: (context) {
@@ -23,11 +25,14 @@ class _AppDropDownDialog<T> extends StatelessWidget {
 
   VoidCallback? addButtonClick;
 
+  bool? searchEnabled;
+
   _AppDropDownDialog(
       {super.key,
       required this.data,
       this.addButtonTitle,
-      this.addButtonClick});
+      this.addButtonClick,
+      this.searchEnabled});
 
   @override
   Widget build(BuildContext context) {
@@ -45,20 +50,23 @@ class _AppDropDownDialog<T> extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SearchBar(
-                    elevation: MaterialStateProperty.all(1),
-                    trailing: [
-                      Icon(
-                        Icons.search,
-                        color: AppColor.secondaryTextColor,
-                      )
-                    ],
-                    hintText: 'Search',
-                    onChanged: (value) {
-                      print(value);
-                    },
+                Visibility(
+                  visible: searchEnabled ?? false,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SearchBar(
+                      elevation: MaterialStateProperty.all(1),
+                      trailing: [
+                        Icon(
+                          Icons.search,
+                          color: AppColor.secondaryTextColor,
+                        )
+                      ],
+                      hintText: 'Search',
+                      onChanged: (value) {
+                        print(value);
+                      },
+                    ),
                   ),
                 ),
                 ListView.separated(
@@ -82,11 +90,14 @@ class _AppDropDownDialog<T> extends StatelessWidget {
                     );
                   },
                 ),
-                AppButton(
-                  title: addButtonTitle ?? 'Add',
-                  onPressed: addButtonClick,
-                  color: AppColor.primaryColor,
-                  textColor: Colors.white,
+                Visibility(
+                  visible: addButtonClick != null,
+                  child: AppButton(
+                    title: addButtonTitle ?? 'Add',
+                    onPressed: addButtonClick,
+                    color: AppColor.primaryColor,
+                    textColor: Colors.white,
+                  ),
                 ),
                 Gap(16),
               ],
