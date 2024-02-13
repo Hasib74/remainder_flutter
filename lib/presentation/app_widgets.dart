@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:filednote/core/route/route_provider.dart';
@@ -24,8 +25,9 @@ class AppWidget extends HookConsumerWidget {
     });
 
     return MaterialApp.router(
+      builder: EasyLoading.init(),
 
-
+      scaffoldMessengerKey: AppGlobalData().snackBarKey,
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
       routeInformationParser: ref.watch(routerProvider).routeInformationParser,
@@ -40,7 +42,7 @@ class AppWidget extends HookConsumerWidget {
         Locale('en', 'US'),
         Locale('bn', 'BD'),
       ],
-      localizationsDelegates:  [
+      localizationsDelegates: [
         AppLocalizations.delegate, // Post-EDIT due to croxx5f
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

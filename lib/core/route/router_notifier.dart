@@ -50,7 +50,7 @@ class RouterNotifier extends ChangeNotifier {
       GoRoute(
         name: AppRoutes.splashScreen,
         path: AppRoutes.splashScreen,
-        builder: (context, state) => SplashScreen(),
+        builder: (context, state) => const SplashScreen(),
       ),
       GoRoute(
         name: AppRoutes.homeScreen,
@@ -68,7 +68,7 @@ class RouterNotifier extends ChangeNotifier {
       GoRoute(
           path: AppRoutes.signIn,
           name: AppRoutes.signIn,
-          builder: (context, state) => const SignInScreen()),
+          builder: (context, state) => SignInScreen()),
       GoRoute(
           path: AppRoutes.signUp,
           name: AppRoutes.signUp,

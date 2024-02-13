@@ -13,7 +13,7 @@ final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     navigatorKey: AppRoutes.rootKey,
     routes: router.routes,
-    initialLocation: AppRoutes.dashBoard,
+    initialLocation: AppRoutes.splashScreen,
     refreshListenable: router,
     redirect: (BuildContext context, GoRouterState state) {},
   );
