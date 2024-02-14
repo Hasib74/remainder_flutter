@@ -63,7 +63,9 @@ class SignInScreen extends StatelessWidget {
                   textInputType: TextInputType.text,
                   controller: authController?.passwordController,
                   validator: (value) {
-                    return "Password is required";
+                    if (value!.isEmpty) {
+                      return "Password is required";
+                    }
                   },
                 ),
                 AppUtils.largeGap,

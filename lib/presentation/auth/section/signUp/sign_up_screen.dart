@@ -81,6 +81,7 @@ class SignUpScreen extends StatelessWidget {
             ),
             AppUtils.smallGap,
             AppTextFiled(
+              obscureText: true,
               hint: language(context)!.password,
               textInputType: TextInputType.text,
               controller: authController.passwordController,
