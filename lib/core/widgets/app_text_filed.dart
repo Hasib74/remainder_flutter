@@ -19,7 +19,7 @@ class AppTextFiled<T> extends StatelessWidget {
   Function? onEditingComplete;
   Function? onTap;
   Function? onSaved;
-  Function? validator;
+  final String? Function(String?)? validator;
   int? maxLines;
   int? minLines;
   bool? enabled;
@@ -97,7 +97,7 @@ class AppTextFiled<T> extends StatelessWidget {
       },
       child: isMultiSelect == true
           ? _multiSelect()
-          : TextField(
+          : TextFormField(
               controller: controller,
               keyboardType: textInputType,
               textInputAction: textInputAction,
@@ -105,7 +105,7 @@ class AppTextFiled<T> extends StatelessWidget {
               onChanged: onChanged as void Function(String)?,
               onEditingComplete: onEditingComplete as void Function()?,
               onTap: onTap as void Function()?,
-              onSubmitted: onFieldSubmitted as void Function(String)?,
+              validator: validator as String? Function(String?)?,
               maxLines: maxLines,
               minLines: minLines,
               enabled: enabled,

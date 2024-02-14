@@ -1,8 +1,12 @@
 import 'package:filednote/core/mixin/state_mixin.dart';
+import 'package:filednote/core/response/appResponse.dart';
+import 'package:filednote/core/response/error.dart';
 import 'package:filednote/core/snackbar/app_snack_bar.dart';
+import 'package:filednote/core/widgets/app_loading_widgets.dart';
 import 'package:filednote/presentation/auth/service/auth_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:fpdart/fpdart.dart';
 
 import '../repository/auth_repository.dart';
 
@@ -12,8 +16,6 @@ class AuthController with StateMixin {
   AuthRepository authService = AuthService();
 
   AuthController(this.context);
-
-  TextEditingController emailController = TextEditingController();
 
   TextEditingController passwordController = TextEditingController();
 
@@ -29,9 +31,12 @@ class AuthController with StateMixin {
 
   TextEditingController designationController = TextEditingController();
 
+  var regFormKey = GlobalKey<FormState>();
+
+  var signInFormKey = GlobalKey<FormState>();
+
   @override
   dispose() {
-    emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
     nameController.dispose();
@@ -43,7 +48,10 @@ class AuthController with StateMixin {
 
   @override
   initState() {
-    emailController.clear();
+    _clearData();
+  }
+
+  void _clearData() {
     passwordController.clear();
     confirmPasswordController.clear();
     nameController.clear();
@@ -66,35 +74,50 @@ class AuthController with StateMixin {
   }
 
   Future<void> signInWithEmailAndPassword() async {
-    if (emailAddressController.value.text.isEmpty) {
-      AppSnackBar.showErrorSnackBar(context, 'Email is required');
+    signInFormKey.currentState?.save();
+    if (signInFormKey.currentState?.validate() ?? false) {
+      Map<String, String> body = {
+        'username ': emailAddressController.value.text,
+        'password': passwordController.value.text
+      };
 
-      return;
+      EasyLoading.show(status: 'loading...');
+
+      await authService.signInWithEmailAndPassword(body);
+
+      EasyLoading.dismiss();
     }
-
-    if (passwordController.value.text.isEmpty) {
-      AppSnackBar.showErrorSnackBar(context, 'Password is required');
-      return;
-    }
-
-    Map<String, String> body = {
-      'username ': emailAddressController.value.text,
-      'password': passwordController.value.text
-    };
-
-    EasyLoading.show(status: 'loading...');
-
-    print("Auth service => ${authService}");
-
-    await authService.signInWithEmailAndPassword(body);
-
-    EasyLoading.dismiss();
   }
 
-  Future<void> signUpWithEmailAndPassword(Map<String, String> body) async {
-    EasyLoading.show(status: 'loading...');
-    await authService.signUpWithEmailAndPassword(body);
-    EasyLoading.dismiss();
+  Future<void> signUpWithEmailAndPassword() async {
+    print("Form validation : ${regFormKey.currentState?.validate()}");
+
+    regFormKey.currentState?.save();
+
+    if (regFormKey.currentState?.validate() ?? false) {
+      Map<String, String> body = {
+        "email": emailAddressController.value.text,
+        "full_name": nameController.value.text,
+        "is_active": "true",
+        "is_verified": "true",
+        "password": passwordController.value.text,
+      };
+
+      AppLoadingWidget.showLoadingDialog(context);
+
+      Either<AppError, AppResponse> res =
+          await authService.signUpWithEmailAndPassword(body);
+
+      if (res.isRight()) {
+        AppSnackBar.showSuccessSnackBar(
+            context: context, message: 'Registration Successful');
+      } else {
+        AppSnackBar.showErrorSnackBar(
+            context: context, message: 'Registration Failed');
+      }
+
+      AppLoadingWidget.hideLoadingDialog();
+    }
   }
 
   Future<void> signOut() async {

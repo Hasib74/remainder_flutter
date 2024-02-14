@@ -72,7 +72,7 @@ class RouterNotifier extends ChangeNotifier {
       GoRoute(
           path: AppRoutes.signUp,
           name: AppRoutes.signUp,
-          builder: (context, state) => const SignUpScreen()),
+          builder: (context, state) => SignUpScreen()),
       StatefulShellRoute(
         builder: (BuildContext context, GoRouterState state,
             StatefulNavigationShell navigationShell) {
