@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
+
 mixin StateMixin {
-  void initState() {}
+  void initState(BuildContext context) {}
 
   void dispose() {}
 }

@@ -20,6 +20,7 @@ class AppRoutes {
   static const String addExp = "add_exp";
   static const String dashBoard = "/dash_board";
   static const String observation = "/observation";
+  static const String cropsList = "/crop_list";
 
 //go route
 }

@@ -2,9 +2,9 @@ import 'dart:math' as math;
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:filednote/core/extension/dio_response_extension.dart';
 
 class CustomInterceptor extends Interceptor {
-
   final bool request;
   final bool requestHeader;
   final bool requestBody;
@@ -17,19 +17,17 @@ class CustomInterceptor extends Interceptor {
   final int maxWidth;
   void Function(Object object) logPrint;
 
-  CustomInterceptor(
-      {
-        this.request = true,
-        this.requestHeader = false,
-        this.requestBody = false,
-        this.responseHeader = false,
-        this.responseBody = true,
-        this.error = true,
-        this.maxWidth = 90,
-        this.compact = true,
-        this.logPrint = print,
-
-      });
+  CustomInterceptor({
+    this.request = true,
+    this.requestHeader = false,
+    this.requestBody = false,
+    this.responseHeader = false,
+    this.responseBody = true,
+    this.error = true,
+    this.maxWidth = 90,
+    this.compact = true,
+    this.logPrint = print,
+  });
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
@@ -51,7 +49,6 @@ class CustomInterceptor extends Interceptor {
       _printMapAsTable(requestHeaders, header: 'Headers');
       _printMapAsTable(options.extra, header: 'Extras');
       options.headers.addAll(requestHeaders);
-
     }
     if (requestBody && options.method != 'GET') {
       final dynamic data = options.data;
@@ -67,6 +64,7 @@ class CustomInterceptor extends Interceptor {
         }
       }
     }
+
     super.onRequest(options, handler);
   }
 
@@ -77,7 +75,7 @@ class CustomInterceptor extends Interceptor {
         final uri = err.response?.requestOptions.uri;
         _printBoxed(
             header:
-            'DioError ║ Status: ${err.response?.statusCode} ${err.response?.statusMessage}',
+                'DioError ║ Status: ${err.response?.statusCode} ${err.response?.statusMessage}',
             text: uri.toString());
         if (err.response != null && err.response?.data != null) {
           logPrint('╔ ${err.type.toString()}');
@@ -95,6 +93,7 @@ class CustomInterceptor extends Interceptor {
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     _printResponseHeader(response);
+    response.showStatusMessage();
     if (responseHeader) {
       final responseHeaders = <String, String>{};
       response.headers
@@ -110,7 +109,7 @@ class CustomInterceptor extends Interceptor {
       _printLine('╚');
     }
 
-   // EventTracker().eventTracker(eventName: "ApiCalling", pageName: "api", routePath: "${response.realUri}", message: "statusCode: ${response.statusCode}");
+    // EventTracker().eventTracker(eventName: "ApiCalling", pageName: "api", routePath: "${response.realUri}", message: "statusCode: ${response.statusCode}");
     super.onResponse(response, handler);
   }
 
@@ -140,7 +139,7 @@ class CustomInterceptor extends Interceptor {
     final method = response.requestOptions.method;
     _printBoxed(
         header:
-        'Response ║ $method ║ Status: ${response.statusCode} ${response.statusMessage}',
+            'Response ║ $method ║ Status: ${response.statusCode} ${response.statusMessage}',
         text: uri.toString());
   }
 
@@ -177,11 +176,11 @@ class CustomInterceptor extends Interceptor {
   String _indent([int tabCount = initialTab]) => tabStep * tabCount;
 
   void _printPrettyMap(
-      Map data, {
-        int tabs = initialTab,
-        bool isListItem = false,
-        bool isLast = false,
-      }) {
+    Map data, {
+    int tabs = initialTab,
+    bool isListItem = false,
+    bool isLast = false,
+  }) {
     var _tabs = tabs;
     final isRoot = _tabs == initialTab;
     final initialIndent = _indent(_tabs);
@@ -246,8 +245,8 @@ class CustomInterceptor extends Interceptor {
 
   bool _canFlattenMap(Map map) {
     return map.values
-        .where((dynamic val) => val is Map || val is List)
-        .isEmpty &&
+            .where((dynamic val) => val is Map || val is List)
+            .isEmpty &&
         map.toString().length < maxWidth;
   }
 
@@ -259,7 +258,7 @@ class CustomInterceptor extends Interceptor {
     if (map == null || map.isEmpty) return;
     logPrint('╔ $header ');
     map.forEach(
-            (dynamic key, dynamic value) => _printKV(key.toString(), value));
+        (dynamic key, dynamic value) => _printKV(key.toString(), value));
     _printLine('╚');
   }
 }

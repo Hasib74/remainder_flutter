@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:filednote/core/mixin/state_mixin.dart';
 import 'package:filednote/core/response/appResponse.dart';
 import 'package:filednote/core/response/error.dart';
@@ -5,9 +8,12 @@ import 'package:filednote/core/snackbar/app_snack_bar.dart';
 import 'package:filednote/core/widgets/app_loading_widgets.dart';
 import 'package:filednote/presentation/auth/service/auth_service.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 
+import '../provider/auth_provider.dart';
 import '../repository/auth_repository.dart';
 
 class AuthController with StateMixin {
@@ -47,7 +53,7 @@ class AuthController with StateMixin {
   }
 
   @override
-  initState() {
+  initState(BuildContext context) {
     _clearData();
   }
 
@@ -73,20 +79,49 @@ class AuthController with StateMixin {
     await authService.signInWithApple();
   }
 
-  Future<void> signInWithEmailAndPassword() async {
+  Future<bool> signInWithEmailAndPassword(BuildContext context) async {
+    Completer<bool> completer = Completer<bool>();
+
     signInFormKey.currentState?.save();
     if (signInFormKey.currentState?.validate() ?? false) {
       Map<String, String> body = {
-        'username ': emailAddressController.value.text,
+        'username': emailAddressController.value.text,
         'password': passwordController.value.text
       };
 
       EasyLoading.show(status: 'loading...');
 
-      await authService.signInWithEmailAndPassword(body);
+      Either<AppError, AppResponse> res =
+          await authService.signInWithEmailAndPassword(body);
+
+      res.fold((l) {
+        AppSnackBar.showErrorSnackBar(
+            context: context, message: l.message ?? 'Login Failed');
+
+        completer.complete(false);
+      }, (r) {
+        if (kDebugMode) {
+          print(jsonEncode(r.data["access_token"]));
+        }
+
+        if (r.data["access_token"] != null) {
+          ProviderContainer()
+              .read(authTokenProvider.notifier)
+              .setToken(r.data["access_token"]);
+
+          ProviderContainer().read(authTokenProvider.notifier).getToken();
+
+          completer.complete(true);
+        }
+
+        AppSnackBar.showSuccessSnackBar(
+            context: context, message: 'Login Successful');
+      });
 
       EasyLoading.dismiss();
     }
+
+    return completer.future;
   }
 
   Future<void> signUpWithEmailAndPassword() async {
@@ -109,6 +144,7 @@ class AuthController with StateMixin {
           await authService.signUpWithEmailAndPassword(body);
 
       if (res.isRight()) {
+        signInWithEmailAndPassword(context);
         AppSnackBar.showSuccessSnackBar(
             context: context, message: 'Registration Successful');
       } else {

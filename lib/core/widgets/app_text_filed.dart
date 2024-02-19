@@ -39,9 +39,7 @@ class AppTextFiled<T> extends StatelessWidget {
   IconData? suffixIcon;
   Function(T)? onSelectedItem;
   String? addButtonTitle;
-
   VoidCallback? onAddButtonClick;
-
   bool? isMultiSelect;
 
   AppTextFiled(
@@ -98,6 +96,7 @@ class AppTextFiled<T> extends StatelessWidget {
       child: isMultiSelect == true
           ? _multiSelect()
           : TextFormField(
+              obscureText: obscureText ?? false,
               controller: controller,
               keyboardType: textInputType,
               textInputAction: textInputAction,
@@ -105,8 +104,8 @@ class AppTextFiled<T> extends StatelessWidget {
               onChanged: onChanged as void Function(String)?,
               onEditingComplete: onEditingComplete as void Function()?,
               onTap: onTap as void Function()?,
-              validator: validator as String? Function(String?)?,
-              maxLines: maxLines,
+              validator: validator,
+              maxLines: obscureText == true ? 1 : maxLines,
               minLines: minLines,
               enabled: enabled,
               textDirection: TextDirection.ltr,

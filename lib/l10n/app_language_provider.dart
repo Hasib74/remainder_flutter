@@ -8,7 +8,7 @@ var appLanguageProvider = StateNotifierProvider<AppLanguageProvider, Locale>(
     (ref) => AppLanguageProvider());
 
 class AppLanguageProvider extends StateNotifier<Locale> {
-  AppLanguageProvider() : super(const Locale('bn', 'BD'));
+  AppLanguageProvider() : super(const Locale('en', 'US'));
 
   void changeLanguage() async {
     Locale myLocale;

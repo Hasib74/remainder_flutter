@@ -58,6 +58,7 @@ class SignInScreen extends StatelessWidget {
                 ),
                 AppUtils.mediumGap,
                 AppTextFiled(
+                  maxLines: 1,
                   obscureText: true,
                   hint: language(context)!.password,
                   textInputType: TextInputType.text,
@@ -71,10 +72,15 @@ class SignInScreen extends StatelessWidget {
                 AppUtils.largeGap,
                 AppButton(
                   title: language(context)!.signIn,
-                  onPressed: () {
+                  onPressed: () async {
                     //      context.goNamed(AppRoutes.dashBoard);
 
-                    authController?.signInWithEmailAndPassword();
+                    bool? isSuccess = await authController
+                        ?.signInWithEmailAndPassword(context);
+
+                    if (isSuccess == true) {
+                      context.pushReplacementNamed(AppRoutes.dashBoard);
+                    }
                   },
                 )
               ],

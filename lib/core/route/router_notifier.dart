@@ -1,4 +1,5 @@
 import 'package:filednote/presentation/auth/auth.dart';
+import 'package:filednote/presentation/crops/presentation/screen/crops_list_screen.dart';
 import 'package:filednote/presentation/mainFeatures/experiments/screen/experiment_screen.dart';
 import 'package:filednote/presentation/mainFeatures/experiments/sector/add_experiment.dart';
 import 'package:filednote/presentation/mainFeatures/root/screen/root_drawer.dart';
@@ -9,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:filednote/domain/authentication.dart';
-import 'package:filednote/presentation/homeScreen/home_screen.dart';
 import 'package:filednote/presentation/splash_screen.dart';
 
 import '../../presentation/auth/section/signIn/sign_in_screen.dart';
@@ -51,11 +51,6 @@ class RouterNotifier extends ChangeNotifier {
         name: AppRoutes.splashScreen,
         path: AppRoutes.splashScreen,
         builder: (context, state) => const SplashScreen(),
-      ),
-      GoRoute(
-        name: AppRoutes.homeScreen,
-        path: AppRoutes.homeScreen,
-        builder: (context, state) => HomeScreen(),
       ),
       GoRoute(
           path: AppRoutes.onBoarding,
@@ -118,9 +113,15 @@ class RouterNotifier extends ChangeNotifier {
                 pageBuilder: (context, state) {
                   return const NoTransitionPage(child: ObserverScreen());
                 })
-          ])
+          ]),
         ],
       ),
+      GoRoute(
+          path: AppRoutes.cropsList,
+          name: AppRoutes.cropsList,
+          builder: (context, state) {
+            return CropListScreen();
+          }),
     ];
   }
 

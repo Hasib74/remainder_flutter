@@ -1,5 +1,3 @@
-import 'package:filednote/presentation/crops/screen/add_crops_screen.dart';
-import 'package:filednote/presentation/crops/screen/crops_list_screen.dart';
 import 'package:filednote/presentation/disease/screen/add_disease.dart';
 import 'package:filednote/presentation/disease/screen/all_disease_screen.dart';
 import 'package:flutter/material.dart';

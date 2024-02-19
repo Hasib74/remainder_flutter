@@ -22,25 +22,17 @@ class AuthService extends AuthRepository {
   @override
   Future<Either<AppError, AppResponse>> signInWithEmailAndPassword(
       Map<String, String> body) async {
-
-    print("body : == > ${body} ");
     try {
-      final response =
-          await dioClient.dio.post(AppUrls.login, data: jsonEncode(body));
+      final response = await dioClient.dio.post(AppUrls.login,
+          data: FormData.fromMap(body),
+          options: Options(headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          }));
       return Right(AppResponse(
         data: response.data,
       ));
-    } on DioExceptionType catch (e) {
+    } on DioException catch (e) {
       e.showMessage();
-      return Left(AppError(
-        message: e.errorMessage,
-      ));
-    } on SocketException catch (e) {
-      e.showMessage();
-      return Left(AppError(
-        message: e.message,
-      ));
-    } on Exception catch (e) {
       return Left(AppError(
         message: e.toString(),
       ));
@@ -68,7 +60,6 @@ class AuthService extends AuthRepository {
   @override
   Future<Either<AppError, AppResponse>> signUpWithEmailAndPassword(
       Map<String, String> body) async {
-
     print("body : == > ${body} ");
     try {
       final response = await dioClient.dio
@@ -76,17 +67,8 @@ class AuthService extends AuthRepository {
       return Right(AppResponse(
         data: response.data,
       ));
-    } on DioExceptionType catch (e) {
+    } on DioException catch (e) {
       e.showMessage();
-      return Left(AppError(
-        message: e.errorMessage,
-      ));
-    } on SocketException catch (e) {
-      e.showMessage();
-      return Left(AppError(
-        message: e.message,
-      ));
-    } on Exception catch (e) {
       return Left(AppError(
         message: e.toString(),
       ));

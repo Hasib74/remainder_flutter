@@ -43,43 +43,6 @@ class RootScreen extends ConsumerWidget {
     );
   }
 
-  /*
-  *
-  *    child: Scaffold(
-          key: _scaffoldKey,
-          appBar: AppBar(
-              leading: IconButton(
-                icon: Icon(
-                  Icons.menu,
-                  color: AppColor.whiteColor,
-                ),
-                onPressed: () {
-                  // context.goNamed(AppRoutes.rootScreen);
-
-                  _scaffoldKey.currentState!.openDrawer();
-                },
-              ),
-              title: Text(provider.tString(context))),
-          drawer: const RootDrawer(),
-          body: _view(provider)),
-  * */
-
-  _view(provider) {
-    switch (provider) {
-      case RootMenuEnum.dashBoardScreen:
-        return Container();
-
-      // TODO: Handle this case.
-      case RootMenuEnum.experimentScreen:
-        return const ExperimentScreen();
-      // TODO: Handle this case.
-      case RootMenuEnum.observationScreen:
-        return Container();
-      // TODO: Handle this case.
-      case RootMenuEnum.profileScreen:
-        return Container();
-    }
-  }
 
   String? _title(
       BuildContext context, StatefulNavigationShell navigationShell) {

@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:filednote/core/global/global_data.dart';
 import 'package:flutter/cupertino.dart';
 
-extension DioErrorExtension on DioExceptionType {
+extension DioErrorExtension on DioException {
   String get errorMessage {
     switch (this) {
       case DioExceptionType.cancel:
