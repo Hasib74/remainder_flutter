@@ -21,6 +21,10 @@ class AppRoutes {
   static const String dashBoard = "/dash_board";
   static const String observation = "/observation";
   static const String cropsList = "/crop_list";
+  static const String desease = "/disease";
+  static const String addDisease = "/add_disease";
+
+
 
 //go route
 }

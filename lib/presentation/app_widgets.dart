@@ -18,6 +18,9 @@ class AppWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var languageProvider = ref.watch(appLanguageProvider);
 
+
+
+
     ref.listen(routerProvider, (previous, next) {
       print("Previous :  ${previous}");
 

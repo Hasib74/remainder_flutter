@@ -118,7 +118,6 @@ class AppTextFiled<T> extends StatelessWidget {
                 hintText: hint,
                 errorText: errorText,
                 focusColor: AppColor.primaryTextColor,
-                fillColor: AppColor.primaryTextColor,
                 suffixIcon: Icon(
                   menus != null
                       ? Icons.keyboard_arrow_down_rounded

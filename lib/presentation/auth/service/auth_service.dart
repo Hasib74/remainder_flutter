@@ -7,6 +7,7 @@ import 'package:filednote/core/network/urls/app_urls.dart';
 import 'package:filednote/core/response/appResponse.dart';
 import 'package:filednote/core/response/error.dart';
 import 'package:filednote/presentation/auth/repository/auth_repository.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fpdart/src/either.dart';
 import 'package:filednote/core/extension/dio_error_extension.dart';
 
@@ -33,6 +34,8 @@ class AuthService extends AuthRepository {
       ));
     } on DioException catch (e) {
       e.showMessage();
+
+
       return Left(AppError(
         message: e.toString(),
       ));

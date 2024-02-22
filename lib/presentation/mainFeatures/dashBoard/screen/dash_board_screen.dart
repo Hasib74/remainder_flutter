@@ -1,14 +1,20 @@
 import 'package:filednote/core/route/app_routes.dart';
 import 'package:filednote/core/theme/app_colors.dart';
+import 'package:filednote/presentation/crops/presentation/controller/crops_controller.dart';
+import 'package:filednote/presentation/crops/presentation/provider/crops_list_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class DashBoardScreen extends StatelessWidget {
+class DashBoardScreen extends HookConsumerWidget {
   const DashBoardScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    CropsController? cropsController = CropsController();
+    cropsController.getAllCrops(context, ref);
+
     return Scaffold(
       body: Center(
         child: Padding(
@@ -28,8 +34,13 @@ class DashBoardScreen extends StatelessWidget {
                   Gap(16),
                   Expanded(
                     child: Card(
-                      child: _verticalListTile(context,
-                          title: "Disease", value: "200"),
+                      child: InkWell(
+                        onTap: () {
+                          context.push(AppRoutes.desease);
+                        },
+                        child: _verticalListTile(context,
+                            title: "Disease", value: "200"),
+                      ),
                     ),
                   ),
                 ],

@@ -4,6 +4,7 @@ import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:dio/dio.dart';
 import 'package:filednote/core/global/global_data.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 extension DioErrorExtension on DioException {
   String get errorMessage {
@@ -25,6 +26,7 @@ extension DioErrorExtension on DioException {
   }
 
   showMessage() {
+    EasyLoading.dismiss();
     if (AppGlobalData().snackBarKey.currentContext == null) {
       return;
     }
@@ -34,7 +36,6 @@ extension DioErrorExtension on DioException {
         .show(AppGlobalData().snackBarKey.currentContext!);
   }
 }
-
 
 extension SocketExceptionExtension on SocketException {
   showMessage() {

@@ -58,6 +58,8 @@ dependencies:
   animated_snack_bar: ^0.4.0
   flutter_easyloading: ^3.0.5
   shared_preferences:
+  form_builder_file_picker: ^4.1.0
+  expandable: ^5.0.1
 
 dev_dependencies:
   flutter_test:

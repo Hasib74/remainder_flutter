@@ -1,6 +1,4 @@
-import 'package:filednote/presentation/disease/screen/add_disease.dart';
-import 'package:filednote/presentation/disease/screen/all_disease_screen.dart';
-import 'package:flutter/material.dart';
+
 import 'package:hooks_riverpod/src/consumer.dart';
 import 'package:filednote/presentation/app_widgets.dart';
 
