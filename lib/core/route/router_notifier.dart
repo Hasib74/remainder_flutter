@@ -1,24 +1,22 @@
-import 'package:filednote/presentation/auth/auth.dart';
-import 'package:filednote/presentation/crops/presentation/screen/crops_list_screen.dart';
-import 'package:filednote/presentation/disease/presentation/screen/add_disease.dart';
-import 'package:filednote/presentation/mainFeatures/experiments/screen/experiment_screen.dart';
-import 'package:filednote/presentation/mainFeatures/experiments/sector/add_experiment.dart';
-import 'package:filednote/presentation/mainFeatures/root/screen/root_drawer.dart';
-import 'package:filednote/presentation/mainFeatures/root/screen/root_screen.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:filednote/domain/authentication.dart';
-import 'package:filednote/presentation/splash_screen.dart';
 
-import '../../presentation/auth/section/signIn/sign_in_screen.dart';
-import '../../presentation/auth/section/signUp/sign_up_screen.dart';
-import '../../presentation/disease/presentation/screen/all_disease_screen.dart';
-import '../../presentation/mainFeatures/dashBoard/screen/dash_board_screen.dart';
-import '../../presentation/mainFeatures/observation/screen/observer_screen.dart';
-import '../../presentation/onBoarding/on_boarding_screen.dart';
+import '../../features/auth/auth.dart';
+import '../../features/auth/section/signIn/sign_in_screen.dart';
+import '../../features/auth/section/signUp/sign_up_screen.dart';
+import '../../features/crops/presentation/screen/crops_list_screen.dart';
+import '../../features/disease/presentation/screen/add_disease.dart';
+import '../../features/disease/presentation/screen/all_disease_screen.dart';
+import '../../features/mainFeatures/dashBoard/screen/dash_board_screen.dart';
+import '../../features/mainFeatures/experiments/screen/experiment_screen.dart';
+import '../../features/mainFeatures/experiments/sector/add_experiment.dart';
+import '../../features/mainFeatures/observation/screen/observer_screen.dart';
+import '../../features/mainFeatures/root/screen/root_screen.dart';
+import '../../features/onBoarding/on_boarding_screen.dart';
+import '../../features/splash_screen.dart';
 import 'app_routes.dart';
 
 class RouterNotifier extends ChangeNotifier {

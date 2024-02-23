@@ -1,6 +1,7 @@
-import 'package:filednote/presentation/auth/provider/auth_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../features/auth/provider/auth_provider.dart';
 
 class AppNetworkCommon {
   static Future<Map<String, String>> header()  async {
