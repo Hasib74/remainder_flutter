@@ -81,22 +81,25 @@ class _AddSupportState extends State<AddSupport> {
               typeSelectors: [
                 TypeSelector(
                   type: FileType.any,
-                  selector: Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.add_circle,
-                        color: AppColor.primaryTextColor,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 4.0),
-                        child: Text("Add documents",
-                            style: TextStyle(
-                              color: AppColor.primaryTextColor,
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.bold,
-                            )),
-                      ),
-                    ],
+                  selector: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.add_circle,
+                          color: AppColor.secondaryTextColor,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 4.0),
+                          child: Text("Add documents",
+                              style: TextStyle(
+                                color: AppColor.primaryTextColor,
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.normal,
+                              )),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

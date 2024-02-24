@@ -7,5 +7,15 @@ class DiseaseModelForView {
   File? document;
   String? fileName;
 
-  bool isExpanded = true;
+  bool? isExpanded = false ;
+
+  setIsExpanded() {
+    print("Before isExpanded : $isExpanded");
+    isExpanded = !isExpanded! ;
+
+    print("After isExpanded : $isExpanded");
+  }
+
+  DiseaseModelForView(
+      {this.crops, this.document, this.fileName, this.isExpanded = false});
 }

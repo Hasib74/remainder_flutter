@@ -43,7 +43,7 @@ class _AddDiseaseScreenState extends ConsumerState<AddDiseaseScreen> {
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
-            // color: Colors.white,
+            color: Colors.white,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -89,99 +89,115 @@ class _AddDiseaseScreenState extends ConsumerState<AddDiseaseScreen> {
       child: ExpansionPanelList(
         expansionCallback: (int index, bool isExpanded) {
           print("Index: $index, isExpanded: $isExpanded");
+
           setState(() {
-            addDiseaseList[index].isExpanded = !isExpanded;
+            addDiseaseList[index].setIsExpanded();
           });
+
+          print(
+              "addDiseaseList[index].isExpanded : ${addDiseaseList[index].isExpanded}");
         },
         children: addDiseaseList
             .map<ExpansionPanel>((e) => ExpansionPanel(
                   canTapOnHeader: true,
-                  isExpanded: e.isExpanded,
+                  isExpanded: e.isExpanded ?? false,
                   headerBuilder: (context, isExpand) {
-                    return Row(
-                      children: [
-                        const Text("Support Crops",
-                            style: TextStyle(fontSize: 16)),
-                        Expanded(
-                          child: Row(
-                            children: [
-                              IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      addDiseaseList.remove(e);
-                                    });
-                                  },
-                                  icon: Container(
-                                    margin: const EdgeInsets.only(left: 16),
-                                    padding: const EdgeInsets.all(4),
-                                    decoration: const BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(4),
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          const Text("Support Crops",
+                              style: TextStyle(fontSize: 16)),
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                IconButton(
+                                    padding: const EdgeInsets.all(0),
+                                    onPressed: () {
+                                      setState(() {
+                                        addDiseaseList.removeAt(
+                                            addDiseaseList.indexOf(e));
+                                      });
+                                    },
+                                    icon: Container(
+                                      margin: const EdgeInsets.only(left: 16),
+                                      padding: const EdgeInsets.all(4),
+                                      decoration: const BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(4),
+                                        ),
                                       ),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            "Delete",
-                                            style: TextStyle(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              "Delete",
+                                              style: TextStyle(
+                                                  color: AppColor.whiteColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16),
+                                            ),
+                                            Icon(
+                                              Icons.delete,
+                                              color: AppColor.whiteColor,
+                                              size: 16,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    )),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Visibility(
+                                  visible: addDiseaseList.indexOf(e) ==
+                                      addDiseaseList.length - 1,
+                                  child: IconButton(
+                                      padding: const EdgeInsets.all(0),
+                                      onPressed: () {
+                                        setState(() {
+                                          addDiseaseList
+                                              .add(DiseaseModelForView());
+                                        });
+                                      },
+                                      icon: Container(
+                                        padding: const EdgeInsets.all(4),
+                                        decoration: const BoxDecoration(
+                                          color: Colors.green,
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(4),
+                                          ),
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              " Add",
+                                              style: TextStyle(
                                                 color: AppColor.whiteColor,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 16),
-                                          ),
-                                          Icon(
-                                            Icons.delete,
-                                            color: AppColor.whiteColor,
-                                            size: 16,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  )),
-                              const SizedBox(
-                                width: 0,
-                              ),
-                              IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      addDiseaseList.add(DiseaseModelForView());
-                                    });
-                                  },
-                                  icon: Container(
-                                    padding: const EdgeInsets.all(4),
-                                    decoration: const BoxDecoration(
-                                      color: Colors.green,
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(4),
-                                      ),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          "Add",
-                                          style: TextStyle(
-                                            color: AppColor.whiteColor,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                          ),
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 8,
+                                            ),
+                                            Icon(
+                                              Icons.add,
+                                              color: AppColor.whiteColor,
+                                            ),
+                                          ],
                                         ),
-                                        const SizedBox(
-                                          width: 8,
-                                        ),
-                                        Icon(
-                                          Icons.add,
-                                          color: AppColor.whiteColor,
-                                        ),
-                                      ],
-                                    ),
-                                  )),
-                            ],
-                          ),
-                        )
-                      ],
+                                      )),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     );
                   },
                   body: Padding(
@@ -189,15 +205,22 @@ class _AddDiseaseScreenState extends ConsumerState<AddDiseaseScreen> {
                     child: AddSupport(
                       ref: ref,
                       onSelectedCrops: (CropsModel model) {
-                        addDiseaseList[addDiseaseList.indexOf(e)].crops = model;
+                        setState(() {
+                          addDiseaseList[addDiseaseList.indexOf(e)].crops =
+                              model;
+                        });
                       },
                       onSelectedFile: (File file) {
-                        addDiseaseList[addDiseaseList.indexOf(e)].document =
-                            file;
+                        setState(() {
+                          addDiseaseList[addDiseaseList.indexOf(e)].document =
+                              file;
+                        });
                       },
                       onSelectedFileName: (String name) {
-                        addDiseaseList[addDiseaseList.indexOf(e)].fileName =
-                            name;
+                        setState(() {
+                          addDiseaseList[addDiseaseList.indexOf(e)].fileName =
+                              name;
+                        });
                       },
                     ),
                   ),
